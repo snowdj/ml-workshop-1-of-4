@@ -39,18 +39,13 @@ SVMs.
 
 class: middle
 
-![:scale 90%](images/boston_scatter.png)
+# King County House Prices
+
+![:scale 90%](images/house_price_scatter.png)
+
 
 
 ???
-Let’s go back to the boston housing dataset. The idea
-was to predict house prices. Here are the features on
-the x axis and the response, so price, on the y axis.
-
-What are some thing you can notice? (concentrated
-distributions, skewed distibutions, discrete variable,
-linear and non-linear effects, different scales)
-
 ---
 
 
@@ -67,7 +62,7 @@ N/A
 class: center, middle
 
 .center[
-![:scale 70%](images/boston_ranges.png)
+![:scale 70%](images/house_price_boxplot.png)
 ]
 
 
@@ -75,7 +70,12 @@ class: center, middle
 Let’s start with the different scales.
 
 Many model want data that is on the same scale.
+KNearestNeighbors: If the distance in TAX is
+between 300 and 400 then the distance difference in
+CHArS doesn’t matter!
 
+Linear models: the different scales mean different
+penalty. L2 is the same for all!
 
 We can also see non-gaussian distributions here btw!
 ---
@@ -163,6 +163,7 @@ class: spacious
 
 ???
 
+FIXME ugly slide
 There’s another one that's important for sparse data. It’s
 called the MaxAbsScaler in scikit-learn. So sparse data is
 the kind of data that happens actually quite frequently in
@@ -196,7 +197,7 @@ scaling by one divided by the maximum absolute value.
 
 ```python
 from sklearn.linear_model import Ridge
-X, y = boston.data, boston.target
+# Back to King Country house prices
 X_train, X_test, y_train, y_test = train_test_split(
     X, y, random_state=0)
 
@@ -209,7 +210,7 @@ X_test_scaled = scaler.transform(X_test)
 ridge.score(X_test_scaled, y_test)
 ```
 ```
-0.634
+0.684
 ```
 
 ???
@@ -338,7 +339,7 @@ knn.score(X_test_scaled, y_test)
 
 ???
 
-Let’s apply the scaler to the Boston housing data.
+Let’s apply the scaler to the King Country housing data.
 
 First I used the StandardScaler to scale the training data.
 Then I applied ten-fold cross-validation to evaluate the
@@ -362,7 +363,7 @@ did here. Can you see it?
 
 class: left, middle
 
-# Discrete features
+# Categorical Variables
 
 ---
 
@@ -465,7 +466,7 @@ df
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
-      <th></th><th>boro</th><th>salary</th><th>vegan</th></tr>
+      <th></th><th>boro_ordinal</th><th>salary</th><th>vegan</th></tr>
   </thead>
   <tbody>
     <tr><th>0</th><td>2</td><td>103</td><td>No</td></tr>
@@ -592,58 +593,7 @@ pd.get_dummies(df, columns=['boro'])
 ???
 We can specify selectively which columns to apply the encoding to.
 
----
-# One-Hot (Dummy) Encoding
-.narrow-left-column[
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th><th>boro</th><th>salary</th><th>vegan</th></tr>
-  </thead>
-  <tbody>
-    <tr><th>0</th><td>2</td><td>103</td><td>No</td></tr>
-    <tr><th>1</th><td>3</td><td>89</td><td>No</td></tr>
-    <tr><th>2</th><td>2</td><td>142</td><td>No</td></tr>
-    <tr><th>3</th><td>1</td><td>54</td><td>Yes</td></tr>
-    <tr><th>4</th><td>1</td><td>63</td><td>Yes</td></tr>
-    <tr><th>5</th><td>0</td><td>219</td><td>No</td></tr>
-  </tbody>
-</table>
-]
-.wide-right-column[
-.tiny[
 
-```python
-pd.get_dummies(df_ordinal)
-```
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th><th>boro</th><th>salary</th><th>vegan</th></tr>
-  </thead>
-  <tbody>
-    <tr><th>0</th><td>2</td><td>103</td><td>No</td></tr>
-    <tr><th>1</th><td>3</td><td>89</td><td>No</td></tr>
-    <tr><th>2</th><td>2</td><td>142</td><td>No</td></tr>
-    <tr><th>3</th><td>1</td><td>54</td><td>Yes</td></tr>
-    <tr><th>4</th><td>1</td><td>63</td><td>Yes</td></tr>
-    <tr><th>5</th><td>0</td><td>219</td><td>No</td></tr>
-  </tbody>
-</table>
-]
-]
-???
-This also helps if the variable was already encoded using integers.
-Sometimes, someone has already encoded the categorical
-variables to integers like here. So here this is exactly the
-same information only except instead of strings you have
-them numbered. If you call the get_dummies on this nothing
-happens because none of them are object data types or
-categorical data types. If you want to look at the One Hot
-Encoding, you can explicitly pass columns equal and this
-will transform into boro_1, boro_2, boro_3.
-In this case get_dummies usually wouldn't do anything, but we can tell
-it which variables are categorical and it will dummy encode those for us.
 ---
 # One-Hot (Dummy) Encoding
 .narrow-left-column[
@@ -858,7 +808,7 @@ preprocess = make_column_transformer(
 
 ```
 ???
-New in scikit-learn 0.20 is the column transformer, which
+The way to use this with mixed type data is column transformer, which
 allows you to transforms only some of the columns. For
 example, you can call categorical encoder only on the
 categorical columns and call StandardScaler on the
@@ -909,7 +859,7 @@ class: some-space
 - In principle:
   - All tree-based models, naive Bayes
 - In scikit-learn:
-  - None
+  - Some Naive Bayes classifiers.
 - In scikit-learn "soon":
   - Decision trees, random forests, gradient boosting
 

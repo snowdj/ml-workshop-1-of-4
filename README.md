@@ -8,6 +8,12 @@ Other parts:
 - [Part 3](https://github.com/amueller/ml-workshop-3-of-4)
 - [Part 4](https://github.com/amueller/ml-workshop-4-of-4)
 
+Content
+-------
+- [What is machine learning and what can it do for you?](https://amueller.github.io/ml-workshop-1-of-4/slides/01-introduction.html)
+- [Data loading and basic API of scikit-learn](https://amueller.github.io/ml-workshop-1-of-4/slides/02-supervised-learning.html)
+- [Fundamentals of Data Preprocessing: scaling and categorical data](https://amueller.github.io/ml-workshop-1-of-4/slides/03-preprocessing.html)
+- [Imputation: dealing with missing values](https://amueller.github.io/ml-workshop-1-of-4/slides/04-missing_values.html)
 
 Instructor
 -----------
@@ -26,15 +32,6 @@ Machine learning has become an indispensable tool across many areas of research 
 Prerequisites
 -------------
 This workshop assumes familiarity with Jupyter notebooks and basics of pandas, matplotlib and numpy.
-
-Content
--------
-- Types of machine learning, basics of supervised learning
-- Data loading with pandas
-- Data requirements for scikit-learn
-- Building classification and regression models
-- The scikit-learn API
-- Fundamentals of Data Preprocessing
 
 
 Obtaining the Tutorial Material
@@ -69,7 +66,7 @@ This tutorial will require recent installations of
 - [matplotlib](http://matplotlib.org)
 - [pillow](https://python-pillow.org)
 - [pandas](http://pandas.pydata.org)
-- [scikit-learn](http://scikit-learn.org/stable/) (>=0.18.1)
+- [scikit-learn](http://scikit-learn.org/stable/) (>=0.22.1)
 - [IPython](http://ipython.readthedocs.org/en/stable/)
 - [Jupyter Notebook](http://jupyter.org)
 
@@ -86,9 +83,7 @@ such as [Anaconda](https://www.continuum.io/downloads), which includes
 the most relevant Python packages for science, math, engineering, and
 data analysis; Anaconda can be downloaded and installed for free
 including commercial use and redistribution.
-The code examples in this tutorial should be compatible to Python 2.7,
-Python 3.4 and later. However, it's recommended to use a recent Python version (like
-3.5 or 3.6).
+The code examples in this tutorial requires Python 3.5 or later.
 
 After obtaining the material, we **strongly recommend** you to open and execute
 a Jupyter Notebook `jupter notebook check_env.ipynb` that is located at the
